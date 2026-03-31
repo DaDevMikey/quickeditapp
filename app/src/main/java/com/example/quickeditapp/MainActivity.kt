@@ -140,7 +140,7 @@ fun OnboardingScreen(onComplete: () -> Unit) {
                 0 -> OnboardingPage(
                     title = "Welcome to QuickEdit",
                     description = "Take full control of your Samsung Quick Panel with advanced visual tweaks.",
-                    imageResId = R.mipmap.ic_launcher
+                    imageResId = R.drawable.ic_launcher_foreground
                 )
                 1 -> OnboardingPage(
                     title = "Powerful Integration",
@@ -405,7 +405,7 @@ fun MainScreen() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Icon(
-                painter = painterResource(id = R.mipmap.ic_launcher),
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = null,
                 modifier = Modifier.padding(16.dp).fillMaxSize(),
                 tint = Color.Unspecified
