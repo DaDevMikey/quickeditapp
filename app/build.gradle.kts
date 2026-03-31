@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -48,16 +49,11 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-<<<<<<< HEAD
     implementation(libs.material)
-=======
-<<<<<<< HEAD
-    implementation(libs.material)
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
+    implementation(libs.okhttp)
+    implementation(libs.kotlinx.serialization.json)
     
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
