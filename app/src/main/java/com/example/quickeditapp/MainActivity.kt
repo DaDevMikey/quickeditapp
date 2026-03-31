@@ -127,7 +127,10 @@ fun RootNavigation() {
 /**
  * Onboarding flow to guide the user through Shizuku and System Permission setup.
  */
+<<<<<<< HEAD
 @OptIn(ExperimentalMaterial3Api::class)
+=======
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
 @Composable
 fun OnboardingScreen(onComplete: () -> Unit) {
     val context = LocalContext.current
@@ -162,7 +165,15 @@ fun OnboardingScreen(onComplete: () -> Unit) {
             when (page) {
                 0 -> OnboardingPage(
                     title = "Welcome to QuickEdit",
+<<<<<<< HEAD
                     description = "Unlock the full potential of your Quick Panel.\n\nCreated by DaDevMikey",
+=======
+<<<<<<< HEAD
+                    description = "Unlock the full potential of your Quick Panel.\n\nCreated by DaDevMikey",
+=======
+                    description = "Take full control of your Samsung Quick Panel with advanced visual tweaks.",
+>>>>>>> 10eebd847f854603e9031ce1c2e4274d90f934c4
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
                     imageResId = R.drawable.ic_launcher_foreground
                 )
                 1 -> OnboardingPage(
@@ -411,7 +422,10 @@ fun OneUITheme(content: @Composable () -> Unit) {
 /**
  * Main dashboard where tweaks are toggled.
  */
+<<<<<<< HEAD
 @OptIn(ExperimentalMaterial3Api::class)
+=======
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
@@ -428,6 +442,7 @@ fun MainScreen() {
         percentTextEnabled = getSetting(context, QuickPanelTweaks.KEY_PERCENT)
     }
 
+<<<<<<< HEAD
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier
@@ -539,6 +554,99 @@ fun MainScreen() {
                 .navigationBarsPadding(),
             containerColor = OneUISurface,
             contentColor = OneUIBlue
+=======
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .statusBarsPadding()
+            .verticalScroll(scrollState)
+            .padding(horizontal = 24.dp, vertical = 16.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(48.dp))
+        
+        Surface(
+            modifier = Modifier.size(80.dp),
+            color = OneUIBlue.copy(alpha = 0.1f),
+            shape = RoundedCornerShape(24.dp)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_launcher_foreground),
+                contentDescription = null,
+                modifier = Modifier.padding(16.dp).fillMaxSize(),
+                tint = Color.Unspecified
+            )
+        }
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(text = "Quick Panel ", style = MaterialTheme.typography.headlineMedium, color = Color.White)
+            Text(text = "Tweaks", style = MaterialTheme.typography.headlineMedium, color = OneUIBlue)
+        }
+        
+        Spacer(modifier = Modifier.height(32.dp))
+
+        InfoCard(
+            text = "Changes take effect instantly. Shizuku is only needed for the initial setup.",
+            icon = Icons.Default.Info,
+            backgroundColor = OneUIBlue.copy(alpha = 0.15f),
+            contentColor = OneUIBlue
+        )
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        SectionHeader("Visual Customization")
+        
+        TweakCard {
+            QuickSettingToggle(
+                title = "Enhanced Editing",
+                description = "Unlocks additional layout options in the editor",
+                checked = editMoreEnabled,
+                onCheckedChange = {
+                    editMoreEnabled = it
+                    QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_EDIT_MORE, it)
+                }
+            )
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = Color.White.copy(alpha = 0.05f))
+            QuickSettingToggle(
+                title = "Landscape Editor",
+                description = "Enable full editing support in landscape mode",
+                checked = landscapeEditEnabled,
+                onCheckedChange = {
+                    landscapeEditEnabled = it
+                    QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_LANDSCAPE, it)
+                }
+            )
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = Color.White.copy(alpha = 0.05f))
+            QuickSettingToggle(
+                title = "Percentage Labels",
+                description = "Display values on Brightness and Volume sliders",
+                checked = percentTextEnabled,
+                onCheckedChange = {
+                    percentTextEnabled = it
+                    QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_PERCENT, it)
+                }
+            )
+        }
+
+        Spacer(modifier = Modifier.height(40.dp))
+
+<<<<<<< HEAD
+=======
+        // Reset Button
+>>>>>>> 10eebd847f854603e9031ce1c2e4274d90f934c4
+        TextButton(
+            onClick = {
+                editMoreEnabled = false
+                landscapeEditEnabled = false
+                percentTextEnabled = false
+                QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_EDIT_MORE, false)
+                QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_LANDSCAPE, false)
+                QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_PERCENT, false)
+            },
+            colors = ButtonDefaults.textButtonColors(contentColor = Color.Red.copy(alpha = 0.7f))
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
         ) {
             Icon(Icons.Default.Info, contentDescription = "App Information")
         }
@@ -607,6 +715,18 @@ fun InfoLink(label: String, url: String) {
             Text(text = label, fontWeight = FontWeight.SemiBold)
             Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = OneUIBlue)
         }
+<<<<<<< HEAD
+=======
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "App Developed by DaDevMikey",
+            style = MaterialTheme.typography.bodySmall,
+            color = OneUITextSecondary.copy(alpha = 0.4f)
+        )
+        
+        Spacer(modifier = Modifier.height(32.dp).navigationBarsPadding())
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
     }
 }
 
