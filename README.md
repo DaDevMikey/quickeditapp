@@ -13,7 +13,7 @@ QuickEdit is a specialized Android application designed for Samsung devices to p
 ## Prerequisites
 
 To use QuickEdit, you must have:
-1. A Samsung device running Android 12 (API 31) or higher.
+1. A Samsung device running Android 16 (API 36/One UI 8.5) or higher.
 2. The [Shizuku](https://shizuku.rikka.app/) app installed and running on your device.
 
 ## Installation & Setup
