@@ -40,4 +40,4 @@ To build the project, run:
 - **Tweaks Not Applying:** Double-check that the "Secure Settings" permission was successfully granted during setup.
 
 ## License
-[Insert License Here]
+[MIT](LICENSE)
