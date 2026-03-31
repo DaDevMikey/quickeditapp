@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "com.example.quickeditapp-debug-61:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.quickeditapp-main-63:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.quickeditapp-debug-61:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.example.quickeditapp-main-63:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.example.quickeditapp-debug-61:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.example.quickeditapp-main-63:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.example.quickeditapp-debug-61:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.quickeditapp-main-63:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    }
+]
