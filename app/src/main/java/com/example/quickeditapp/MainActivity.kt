@@ -159,7 +159,11 @@ fun OnboardingScreen(onComplete: () -> Unit) {
             when (page) {
                 0 -> OnboardingPage(
                     title = "Welcome to QuickEdit",
+<<<<<<< HEAD
                     description = "Unlock the full potential of your Quick Panel.\n\nCreated by DaDevMikey",
+=======
+                    description = "Take full control of your Samsung Quick Panel with advanced visual tweaks.",
+>>>>>>> 10eebd847f854603e9031ce1c2e4274d90f934c4
                     imageResId = R.drawable.ic_launcher_foreground
                 )
                 1 -> OnboardingPage(
@@ -500,6 +504,10 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(40.dp))
 
+<<<<<<< HEAD
+=======
+        // Reset Button
+>>>>>>> 10eebd847f854603e9031ce1c2e4274d90f934c4
         TextButton(
             onClick = {
                 editMoreEnabled = false
