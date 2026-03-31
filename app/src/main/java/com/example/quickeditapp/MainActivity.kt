@@ -801,7 +801,7 @@ fun InfoSheetContent() {
                     color = OneUIBlue
                 )
                 Text(
-                    text = "Version 1.0",
+                    text = "Version 1.0.1",
                     style = MaterialTheme.typography.bodySmall,
                     color = OneUITextSecondary
                 )
