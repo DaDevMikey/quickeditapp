@@ -10,8 +10,16 @@ activityCompose = "1.9.3"
 composeBom = "2024.12.01"
 shizuku = "13.1.5"
 material = "1.12.0"
+<<<<<<< HEAD
 okhttp = "4.12.0"
 serialization = "1.7.3"
+=======
+<<<<<<< HEAD
+okhttp = "4.12.0"
+serialization = "1.7.3"
+=======
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }

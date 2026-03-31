@@ -7,13 +7,18 @@ plugins {
 
 android {
     namespace = "com.example.quickeditapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.example.quickeditapp"
         minSdk = 31
+<<<<<<< HEAD
         targetSdk = 35
         versionCode = 2
+=======
+        targetSdk = 36
+        versionCode = 1
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
         versionName = "1.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

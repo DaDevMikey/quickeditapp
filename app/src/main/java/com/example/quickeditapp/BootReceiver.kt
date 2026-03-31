@@ -10,6 +10,13 @@
 
 package com.example.quickeditapp
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.BroadcastReceiver
@@ -27,11 +34,34 @@ class BootReceiver : BroadcastReceiver() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+
+class BootReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        // Handle both standard Android and Samsung-specific quick boot actions
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
         if (intent.action == Intent.ACTION_BOOT_COMPLETED || 
             intent.action == "android.intent.action.QUICKBOOT_POWERON") {
             
             Log.d("BootReceiver", "Reboot detected, reapplying Quick Panel tweaks...")
             
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
             var success = false
             try {
                 val sharedPrefs = context.getSharedPreferences("tweak_prefs", Context.MODE_PRIVATE)
@@ -81,4 +111,25 @@ class BootReceiver : BroadcastReceiver() {
 
         manager.notify(NOTIFICATION_ID, notification)
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+=======
+=======
+            // Retrieve the saved states from SharedPreferences (the app's local storage)
+            val sharedPrefs = context.getSharedPreferences("tweak_prefs", Context.MODE_PRIVATE)
+            val editMore = sharedPrefs.getBoolean(QuickPanelTweaks.KEY_EDIT_MORE, false)
+            val landscape = sharedPrefs.getBoolean(QuickPanelTweaks.KEY_LANDSCAPE, false)
+            val percent = sharedPrefs.getBoolean(QuickPanelTweaks.KEY_PERCENT, false)
+
+            // Re-apply each setting to the system's Secure Settings table.
+            // This is possible because the permission was granted permanently during setup.
+            QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_EDIT_MORE, editMore)
+            QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_LANDSCAPE, landscape)
+            QuickPanelTweaks.setSetting(context, QuickPanelTweaks.KEY_PERCENT, percent)
+        }
+    }
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
+>>>>>>> d1d60545cbec33ffae3c267303df0c116b332d56
 }
