@@ -1,3 +1,12 @@
+/**
+ * QuickPanelTweaks - A specialized utility for Samsung devices to unlock hidden Quick Panel features.
+ * Developed by: DaDevMikey
+ *
+ * This application leverages Shizuku (a bridge to system-level ADB) to grant itself
+ * the WRITE_SECURE_SETTINGS permission. This allows the app to toggle system-level
+ * flags that Samsung uses for Quick Panel customization, even if they aren't exposed in standard menus.
+ */
+
 package com.example.quickeditapp
 
 import android.Manifest
@@ -23,7 +32,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material.icons.filled.Build
@@ -45,19 +54,21 @@ import kotlinx.coroutines.launch
 import rikka.shizuku.Shizuku
 import java.io.OutputStream
 
-// One UI inspired colors
+// One UI inspired color palette for a native look and feel on Samsung devices
 private val OneUIBlue = Color(0xFF3E91FF)
 private val OneUIGray = Color(0xFF1C1C1E)
 private val OneUISurface = Color(0xFF2C2C2E)
 private val OneUITextSecondary = Color(0xFFA1A1A1)
 
 class MainActivity : ComponentActivity() {
+    // Listener to monitor Shizuku permission grant events
     private val REQUEST_PERMISSION_RESULT_LISTENER = Shizuku.OnRequestPermissionResultListener { _, _ ->
-        // Status refresh is handled by the UI polling or manual refresh
+        // Status refresh is handled by the UI polling logic
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Add Shizuku listener on startup
         Shizuku.addRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER)
         enableEdgeToEdge()
         setContent {
@@ -74,26 +85,30 @@ class MainActivity : ComponentActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        // Clean up the listener to prevent memory leaks
         Shizuku.removeRequestPermissionResultListener(REQUEST_PERMISSION_RESULT_LISTENER)
     }
 }
 
+/**
+ * Manages the top-level navigation state.
+ * It checks for the required WRITE_SECURE_SETTINGS permission.
+ * If granted, it goes to the Main Screen; otherwise, it shows the Onboarding.
+ */
 @Composable
 fun RootNavigation() {
     val context = LocalContext.current
     var isSetupComplete by remember { mutableStateOf(false) }
     
-    // Check if both Shizuku and Secure Settings are ready
+    // Check if the critical system permission is granted.
+    // Once this is true, Shizuku is no longer strictly necessary for basic operation.
     fun checkPermissions(): Boolean {
-        val hasShizuku = Shizuku.pingBinder() && 
-                Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
-        val hasSecureSettings = context.checkSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) == 
+        return context.checkSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) == 
                 PackageManager.PERMISSION_GRANTED
-        return hasShizuku && hasSecureSettings
     }
 
     LaunchedEffect(Unit) {
-        // Repeatedly check permissions while on onboarding
+        // Repeatedly poll for permission status while on setup screen
         while(!isSetupComplete) {
             isSetupComplete = checkPermissions()
             kotlinx.coroutines.delay(1000)
@@ -107,6 +122,9 @@ fun RootNavigation() {
     }
 }
 
+/**
+ * Onboarding flow to guide the user through Shizuku and System Permission setup.
+ */
 @Composable
 fun OnboardingScreen(onComplete: () -> Unit) {
     val context = LocalContext.current
@@ -115,13 +133,15 @@ fun OnboardingScreen(onComplete: () -> Unit) {
     var isShizukuAuthorized by remember { mutableStateOf(false) }
     var isSecureSettingsGranted by remember { mutableStateOf(false) }
 
+    // Refreshes the internal status of both required permissions
     fun refreshStatus() {
         isShizukuAuthorized = Shizuku.pingBinder() && 
                 Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED
         isSecureSettingsGranted = context.checkSelfPermission(Manifest.permission.WRITE_SECURE_SETTINGS) == 
                 PackageManager.PERMISSION_GRANTED
         
-        if (isShizukuAuthorized && isSecureSettingsGranted) {
+        // Auto-complete onboarding if permission is detected
+        if (isSecureSettingsGranted) {
             onComplete()
         }
     }
@@ -134,30 +154,22 @@ fun OnboardingScreen(onComplete: () -> Unit) {
         HorizontalPager(
             state = pagerState,
             modifier = Modifier.weight(1f),
-            userScrollEnabled = false // We guide them with buttons
+            userScrollEnabled = false // Forced step-by-step navigation
         ) { page ->
             when (page) {
                 0 -> OnboardingPage(
                     title = "Welcome to QuickEdit",
-                    description = "Take full control of your Samsung Quick Panel with advanced visual tweaks.",
-<<<<<<< HEAD
+                    description = "Unlock the full potential of your Quick Panel.\n\nCreated by DaDevMikey",
                     imageResId = R.drawable.ic_launcher_foreground
-=======
-<<<<<<< HEAD
-                    imageResId = R.drawable.ic_launcher_foreground
-=======
-                    imageResId = R.mipmap.ic_launcher
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
                 )
                 1 -> OnboardingPage(
-                    title = "Powerful Integration",
-                    description = "We use Shizuku to interact with system settings securely without needing Root access on most devices.",
+                    title = "Secure System Access",
+                    description = "We use Shizuku to securely communicate with system settings without requiring Root access.",
                     icon = Icons.Default.Info
                 )
                 2 -> OnboardingPage(
-                    title = "Instant Changes",
-                    description = "No reboots, no waiting. Every toggle you flip takes effect the moment you touch it.",
+                    title = "Persistent Tweaks",
+                    description = "Your settings are applied instantly and saved automatically, even after you reboot your device.",
                     icon = Icons.Default.CheckCircle
                 )
                 3 -> PermissionSetupPage(
@@ -177,13 +189,13 @@ fun OnboardingScreen(onComplete: () -> Unit) {
             }
         }
 
-        // Bottom Navigation
+        // Navigation Footer
         Row(
             modifier = Modifier.fillMaxWidth().padding(24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            // Page Indicator
+            // Page indicators (Dots)
             Row {
                 repeat(4) { index ->
                     val color = if (pagerState.currentPage == index) OneUIBlue else OneUISurface
@@ -197,6 +209,7 @@ fun OnboardingScreen(onComplete: () -> Unit) {
                 }
             }
 
+            // Next button logic
             if (pagerState.currentPage < 3) {
                 Button(
                     onClick = { scope.launch { pagerState.animateScrollToPage(pagerState.currentPage + 1) } },
@@ -204,13 +217,16 @@ fun OnboardingScreen(onComplete: () -> Unit) {
                     colors = ButtonDefaults.buttonColors(containerColor = OneUIBlue)
                 ) {
                     Text("Next")
-                    Icon(Icons.Default.KeyboardArrowRight, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null)
                 }
             }
         }
     }
 }
 
+/**
+ * Individual page template for onboarding.
+ */
 @Composable
 fun OnboardingPage(
     title: String, 
@@ -262,6 +278,9 @@ fun OnboardingPage(
     }
 }
 
+/**
+ * Screen where permissions are actually requested and granted.
+ */
 @Composable
 fun PermissionSetupPage(
     isShizukuAuthorized: Boolean,
@@ -281,7 +300,7 @@ fun PermissionSetupPage(
         )
         Spacer(modifier = Modifier.height(8.dp))
         Text(
-            text = "We need these permissions to modify your Quick Panel settings.",
+            text = "Grant these permissions to allow modification of system settings.",
             style = MaterialTheme.typography.bodyMedium,
             textAlign = TextAlign.Center,
             color = OneUITextSecondary
@@ -289,7 +308,6 @@ fun PermissionSetupPage(
         
         Spacer(modifier = Modifier.height(48.dp))
 
-        // Shizuku Step
         PermissionStep(
             title = "1. Authorize Shizuku",
             isGranted = isShizukuAuthorized,
@@ -298,7 +316,6 @@ fun PermissionSetupPage(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Secure Settings Step
         PermissionStep(
             title = "2. Grant Secure Settings",
             isGranted = isSecureSettingsGranted,
@@ -309,7 +326,7 @@ fun PermissionSetupPage(
         if (isShizukuAuthorized && !isSecureSettingsGranted) {
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "Tap 'Grant' to automatically run the ADB command via Shizuku.",
+                text = "Tap 'Setup' to run the grant command automatically via Shizuku.",
                 style = MaterialTheme.typography.bodySmall,
                 color = OneUIBlue,
                 textAlign = TextAlign.Center
@@ -318,6 +335,9 @@ fun PermissionSetupPage(
     }
 }
 
+/**
+ * Row representing a single permission requirement.
+ */
 @Composable
 fun PermissionStep(title: String, isGranted: Boolean, enabled: Boolean = true, onClick: () -> Unit) {
     Surface(
@@ -350,6 +370,9 @@ fun PermissionStep(title: String, isGranted: Boolean, enabled: Boolean = true, o
     }
 }
 
+/**
+ * Standard One UI themed wrapper.
+ */
 @Composable
 fun OneUITheme(content: @Composable () -> Unit) {
     val darkColorScheme = darkColorScheme(
@@ -382,6 +405,9 @@ fun OneUITheme(content: @Composable () -> Unit) {
     )
 }
 
+/**
+ * Main dashboard where tweaks are toggled.
+ */
 @Composable
 fun MainScreen() {
     val context = LocalContext.current
@@ -390,6 +416,7 @@ fun MainScreen() {
     var percentTextEnabled by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
 
+    // Sync UI state with current device settings on load
     LaunchedEffect(Unit) {
         editMoreEnabled = getSetting(context, QuickPanelTweaks.KEY_EDIT_MORE)
         landscapeEditEnabled = getSetting(context, QuickPanelTweaks.KEY_LANDSCAPE)
@@ -406,22 +433,13 @@ fun MainScreen() {
     ) {
         Spacer(modifier = Modifier.height(48.dp))
         
-        // App Logo in Header
         Surface(
             modifier = Modifier.size(80.dp),
             color = OneUIBlue.copy(alpha = 0.1f),
             shape = RoundedCornerShape(24.dp)
         ) {
             Icon(
-<<<<<<< HEAD
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
-=======
-<<<<<<< HEAD
-                painter = painterResource(id = R.drawable.ic_launcher_foreground),
-=======
-                painter = painterResource(id = R.mipmap.ic_launcher),
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
                 contentDescription = null,
                 modifier = Modifier.padding(16.dp).fillMaxSize(),
                 tint = Color.Unspecified
@@ -438,7 +456,7 @@ fun MainScreen() {
         Spacer(modifier = Modifier.height(32.dp))
 
         InfoCard(
-            text = "Settings take effect instantly. No reboot required.",
+            text = "Changes take effect instantly. Shizuku is only needed for the initial setup.",
             icon = Icons.Default.Info,
             backgroundColor = OneUIBlue.copy(alpha = 0.15f),
             contentColor = OneUIBlue
@@ -446,12 +464,12 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(24.dp))
 
-        SectionHeader("Visual Tweaks")
+        SectionHeader("Visual Customization")
         
         TweakCard {
             QuickSettingToggle(
-                title = "Edit More",
-                description = "Extra editing options in panel",
+                title = "Enhanced Editing",
+                description = "Unlocks additional layout options in the editor",
                 checked = editMoreEnabled,
                 onCheckedChange = {
                     editMoreEnabled = it
@@ -460,8 +478,8 @@ fun MainScreen() {
             )
             HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = Color.White.copy(alpha = 0.05f))
             QuickSettingToggle(
-                title = "Landscape Edit",
-                description = "Enable editing in landscape",
+                title = "Landscape Editor",
+                description = "Enable full editing support in landscape mode",
                 checked = landscapeEditEnabled,
                 onCheckedChange = {
                     landscapeEditEnabled = it
@@ -470,8 +488,8 @@ fun MainScreen() {
             )
             HorizontalDivider(modifier = Modifier.padding(horizontal = 20.dp), color = Color.White.copy(alpha = 0.05f))
             QuickSettingToggle(
-                title = "Volume & Brightness %",
-                description = "Show percentage indicators",
+                title = "Percentage Labels",
+                description = "Display values on Brightness and Volume sliders",
                 checked = percentTextEnabled,
                 onCheckedChange = {
                     percentTextEnabled = it
@@ -482,10 +500,6 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(40.dp))
 
-<<<<<<< HEAD
-        // Reset Button
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
         TextButton(
             onClick = {
                 editMoreEnabled = false
@@ -499,12 +513,15 @@ fun MainScreen() {
         ) {
             Text("Reset all tweaks", fontWeight = FontWeight.Medium)
         }
+
+        Spacer(modifier = Modifier.height(16.dp))
+        Text(
+            text = "App Developed by DaDevMikey",
+            style = MaterialTheme.typography.bodySmall,
+            color = OneUITextSecondary.copy(alpha = 0.4f)
+        )
         
-<<<<<<< HEAD
         Spacer(modifier = Modifier.height(32.dp).navigationBarsPadding())
-=======
-        Spacer(modifier = Modifier.height(48.dp).navigationBarsPadding())
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
     }
 }
 
@@ -587,59 +604,66 @@ fun QuickSettingToggle(
     }
 }
 
-fun checkShizuku(context: Context): Boolean {
-    return try {
-        if (Shizuku.pingBinder()) {
-            if (Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED) {
-                return true
-            } else {
-                Shizuku.requestPermission(0)
-            }
-        }
-        false
-    } catch (e: Exception) {
-        false
-    }
-}
-
+/**
+ * Developed by: DaDevMikey
+ * Fixed the permission grant logic using a more robust reflection approach.
+ * This runs the shell command 'pm grant <pkg> <perm>' through the Shizuku bridge.
+ */
 fun grantSecureSettingsPermission(context: Context) {
     val packageName = context.packageName
     val command = "pm grant $packageName android.permission.WRITE_SECURE_SETTINGS\n"
     
     try {
-        val newProcessMethod = rikka.shizuku.Shizuku::class.java.getDeclaredMethod(
-            "newProcess", 
-            Array<String>::class.java, 
-            Array<String>::class.java, 
-            String::class.java
-        ).apply { isAccessible = true }
+        // Find the newProcess method via reflection to bypass 'private' access restrictions
+        val methods = Shizuku::class.java.declaredMethods
+        val newProcessMethod = methods.find { 
+            it.name == "newProcess" && it.parameterCount == 3 
+        }
         
-        val process = newProcessMethod.invoke(null, arrayOf("sh"), null, null) as rikka.shizuku.ShizukuRemoteProcess
-        val os: OutputStream = process.outputStream
-        os.write(command.toByteArray())
-        os.write("exit\n".toByteArray())
-        os.flush()
-        process.waitFor()
+        if (newProcessMethod != null) {
+            newProcessMethod.isAccessible = true
+            // Execute 'sh -c' to run the grant command as the shell user
+            val process = newProcessMethod.invoke(null, arrayOf("sh", "-c", command), null, null) as rikka.shizuku.ShizukuRemoteProcess
+            val os: OutputStream = process.outputStream
+            os.write("exit\n".toByteArray())
+            os.flush()
+            process.waitFor()
+        }
     } catch (e: Exception) {
         e.printStackTrace()
     }
 }
 
+/**
+ * Utility for reading and writing Samsung-specific secure settings.
+ */
 object QuickPanelTweaks {
+    // Internal system keys used by Samsung's Quick Panel
     const val KEY_EDIT_MORE = "quick_panel_edit_more"
     const val KEY_LANDSCAPE = "quick_panel_landscape_edit"
     const val KEY_PERCENT = "quick_panel_percent_text"
 
+    /**
+     * Updates the system setting and saves a copy locally for boot persistence.
+     */
     fun setSetting(context: Context, key: String, enabled: Boolean) {
         val value = if (enabled) "1" else "0"
         try {
+            // Write to the device's Secure Settings table
             Settings.Secure.putString(context.contentResolver, key, value)
+            
+            // Mirror to SharedPreferences so we can restore it after a reboot
+            val sharedPrefs = context.getSharedPreferences("tweak_prefs", Context.MODE_PRIVATE)
+            sharedPrefs.edit().putBoolean(key, enabled).apply()
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 }
 
+/**
+ * Fetches the current value of a secure setting key.
+ */
 fun getSetting(context: Context, key: String): Boolean {
     return try {
         Settings.Secure.getInt(context.contentResolver, key, 0) == 1
