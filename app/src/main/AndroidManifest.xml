@@ -7,7 +7,14 @@
     <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+=======
+<<<<<<< HEAD
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+=======
+>>>>>>> 9197bdc6b8f0c5e3b519e4d519644a1eeb0c48ce
+>>>>>>> 04c9b7cfa3d8d10bb3af1131c277c98c3a48f4a0
 
     <queries>
         <package android:name="moe.shizuku.privileged.api" />
