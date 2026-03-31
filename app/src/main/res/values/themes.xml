@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.QuickEditApp" parent="android:Theme.DeviceDefault.NoActionBar">
@@ -5,4 +9,11 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
     </style>
+<<<<<<< HEAD
+=======
+=======
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Theme.QuickEditApp" parent="android:Theme.Material.Light.NoActionBar" />
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
+>>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
 </resources>
