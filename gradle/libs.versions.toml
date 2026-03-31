@@ -9,14 +9,7 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.0"
 composeBom = "2025.01.01"
 shizuku = "13.1.5"
-<<<<<<< HEAD
 material = "1.12.0"
-=======
-<<<<<<< HEAD
-material = "1.12.0"
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,14 +26,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-<<<<<<< HEAD
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-=======
-<<<<<<< HEAD
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
 shizuku-api = { group = "dev.rikka.shizuku", name = "api", version.ref = "shizuku" }
 shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", version.ref = "shizuku" }
 
