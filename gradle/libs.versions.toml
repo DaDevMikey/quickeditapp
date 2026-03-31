@@ -1,22 +1,17 @@
 [versions]
-agp = "8.13.2"
+agp = "8.7.3"
 kotlin = "2.1.0"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
-activityCompose = "1.10.0"
-composeBom = "2025.01.01"
+activityCompose = "1.9.3"
+composeBom = "2024.12.01"
 shizuku = "13.1.5"
-<<<<<<< HEAD
 material = "1.12.0"
-=======
-<<<<<<< HEAD
-material = "1.12.0"
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
+okhttp = "4.12.0"
+serialization = "1.7.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -33,18 +28,14 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
-<<<<<<< HEAD
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-=======
-<<<<<<< HEAD
-material = { group = "com.google.android.material", name = "material", version.ref = "material" }
-=======
->>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
->>>>>>> 04f5cfeb5b4f47299c30850c95b3399aba16cd40
 shizuku-api = { group = "dev.rikka.shizuku", name = "api", version.ref = "shizuku" }
 shizuku-provider = { group = "dev.rikka.shizuku", name = "provider", version.ref = "shizuku" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
