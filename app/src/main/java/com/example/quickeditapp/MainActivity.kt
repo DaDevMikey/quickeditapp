@@ -140,7 +140,11 @@ fun OnboardingScreen(onComplete: () -> Unit) {
                 0 -> OnboardingPage(
                     title = "Welcome to QuickEdit",
                     description = "Take full control of your Samsung Quick Panel with advanced visual tweaks.",
+<<<<<<< HEAD
                     imageResId = R.drawable.ic_launcher_foreground
+=======
+                    imageResId = R.mipmap.ic_launcher
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
                 )
                 1 -> OnboardingPage(
                     title = "Powerful Integration",
@@ -405,7 +409,11 @@ fun MainScreen() {
             shape = RoundedCornerShape(24.dp)
         ) {
             Icon(
+<<<<<<< HEAD
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
+=======
+                painter = painterResource(id = R.mipmap.ic_launcher),
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
                 contentDescription = null,
                 modifier = Modifier.padding(16.dp).fillMaxSize(),
                 tint = Color.Unspecified
@@ -466,7 +474,10 @@ fun MainScreen() {
 
         Spacer(modifier = Modifier.height(40.dp))
 
+<<<<<<< HEAD
         // Reset Button
+=======
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
         TextButton(
             onClick = {
                 editMoreEnabled = false
@@ -481,7 +492,11 @@ fun MainScreen() {
             Text("Reset all tweaks", fontWeight = FontWeight.Medium)
         }
         
+<<<<<<< HEAD
         Spacer(modifier = Modifier.height(32.dp).navigationBarsPadding())
+=======
+        Spacer(modifier = Modifier.height(48.dp).navigationBarsPadding())
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
     }
 }
 

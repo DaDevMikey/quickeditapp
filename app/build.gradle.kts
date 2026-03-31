@@ -48,7 +48,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+<<<<<<< HEAD
     implementation(libs.material)
+=======
+>>>>>>> 5014e9cc5990d6fa231d2d22fc1d813e2401bd48
     implementation(libs.shizuku.api)
     implementation(libs.shizuku.provider)
     
