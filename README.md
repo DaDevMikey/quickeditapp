@@ -1,3 +1,5 @@
+## ** As of 02-04-2026 this project is discontinued because the official quickstar update is rolling out globally **
+
 # QuickEdit
 
 QuickEdit is a specialized Android application designed for Samsung devices to provide advanced visual and functional tweaks to the Quick Panel. It leverages **Shizuku** to interact with system settings securely without requiring root access.
