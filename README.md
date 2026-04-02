@@ -1,4 +1,4 @@
-## ** As of 02-04-2026 this project is discontinued because the official quickstar update is rolling out globally **
+## **As of 02-04-2026 this project is discontinued because the official quickstar update is rolling out globally**
 
 # QuickEdit
 
